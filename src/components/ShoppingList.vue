@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1>Shopping List</h1>
+  <div class="container" :class="{ light: theme === 'light' }">
+    <h1>{{ title }}</h1>
     <div class="card">
       <form @submit.prevent="addItem">
         <div class="types">
@@ -83,6 +83,7 @@
 <script>
 export default {
   name: "ShoppingList",
+  props: ["title", "theme"],
   data() {
     return {
       submited: false,
@@ -125,6 +126,7 @@ export default {
 $white: rgba(255, 255, 255, 0.668);
 $light-grey: rgba(255, 255, 255, 0.073);
 $light-green: rgba(0, 128, 0, 0.445);
+$black: rgb(0, 0, 0);
 .container {
   width: 400px;
   height: auto;
@@ -163,7 +165,7 @@ $light-green: rgba(0, 128, 0, 0.445);
       margin: 8px;
       height: 30px;
       border-radius: 5px;
-      color: black;
+      color: $black;
     }
     img {
       width: 80px;
@@ -203,6 +205,11 @@ $light-green: rgba(0, 128, 0, 0.445);
       border-radius: 8px;
       font-size: 18px;
     }
+  }
+  &.light {
+    background-color: $white;
+    color: $black;
+    border: 2px dashed $black;
   }
 }
 </style>
