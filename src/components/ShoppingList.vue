@@ -1,6 +1,7 @@
 <template>
   <div class="container" :class="{ light: theme === 'light' }">
     <h1>{{ title }}</h1>
+    <slot></slot>
     <div class="card">
       <form @submit.prevent="addItem">
         <div class="types">
@@ -70,7 +71,12 @@
         </div>
         <div class="order-info" v-show="submited">
           <h3>Your Order :</h3>
-          <div class="items" v-for="order in orders" :key="order">
+          <div
+            class="items"
+            v-for="order in orders"
+            :key="order"
+            @click="changeName"
+          >
             <p>{{ order.name }}, {{ order.quantity }}</p>
             <img :src="order.img" :alt="order.name" />
           </div>
@@ -101,6 +107,13 @@ export default {
     };
   },
   methods: {
+    changeName() {
+      this.$emit("changeName", {
+        el: "div",
+        method: "changeName",
+        component: "ShoppingList.vue",
+      });
+    },
     addItem() {
       let item = {
         name: this.itemName,
